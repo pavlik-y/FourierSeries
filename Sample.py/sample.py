@@ -1,4 +1,5 @@
 import cmath
+import treble_clef
 
 def genSquareSamples(samples_per_side, side_length):
   for i in xrange(samples_per_side):
@@ -50,10 +51,30 @@ def genMickey(samplesPerSegment, r):
     for s in genArcSamples(samplesPerSegment * sec[0], sec[4], sec[3], sec[1], sec[2]):
       yield s
 
+def calcBezier(c, t):
+  t1 = 1.0 - t
+  value = complex()
+  value += t1*t1*t1*c[0]
+  value += 3.0*t1*t1*t*c[1]
+  value += 3.0*t1*t*t*c[2]
+  value += t*t*t*c[3]
+  return value
+
+def sampleCurve(c, num):
+  for i in xrange(num):
+    t = 1.0*i/num
+    yield calcBezier(c, t)/4.0
+
+def sampleCurves(cs, num):
+  for c in cs:
+    for v in sampleCurve(c, num):
+      yield v
+
 def main():
   # Mickey()
   threshold = 0.001
-  samples = list(genMickey(300, 1.8))
+  # samples = list(genMickey(300, 1.8))
+  samples = list(sampleCurves(treble_clef.curves, 100))
   printHarmonic(0, samples, threshold)
   for i in xrange(1, 200):
     printHarmonic(i, samples, threshold)
