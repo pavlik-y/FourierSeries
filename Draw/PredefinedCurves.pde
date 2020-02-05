@@ -9,11 +9,37 @@ static class HarmonicParams {
     this.alpha = alpha;
   }
 }
-
+static ArrayList<HarmonicParams> Zero = new ArrayList<HarmonicParams>();
 static ArrayList<HarmonicParams> Mickey = new ArrayList<HarmonicParams>();
 static ArrayList<HarmonicParams> TrebleClef = new ArrayList<HarmonicParams>();
+static ArrayList<HarmonicParams> Circle = new ArrayList<HarmonicParams>();
+static ArrayList<HarmonicParams> MajorChord = new ArrayList<HarmonicParams>();
+
 
 static {
+  Zero.add(new HarmonicParams(0, 0, 0));
+  for (int i = 1; i < 200; i++) {
+    Zero.add(new HarmonicParams(i, 0, 0));
+    Zero.add(new HarmonicParams(-i, 0, 0));
+  }
+  Circle.add(new HarmonicParams(0, 0, 0));
+  Circle.add(new HarmonicParams(1, 150, 0));
+  Circle.add(new HarmonicParams(-1, 0, 0));
+  for (int i = 2; i < 200; i++) {
+    Circle.add(new HarmonicParams(i, 0, 0));
+    Circle.add(new HarmonicParams(-i, 0, 0));
+  }
+  MajorChord.add(new HarmonicParams(0, 50, 0));
+  MajorChord.add(new HarmonicParams(4, 100, 0));
+  MajorChord.add(new HarmonicParams(5, 100, 0));
+  MajorChord.add(new HarmonicParams(6, 100, 0));
+  for (int i = 1; i < 200; i++) {
+    if (i < 4 || i > 6)
+      MajorChord.add(new HarmonicParams(i, 0, 0));
+    MajorChord.add(new HarmonicParams(-i, 0, 0));
+  }
+
+
   Mickey.add(new HarmonicParams(0, 11.219076, -1.570797));
   Mickey.add(new HarmonicParams(1, 241.829284, -1.570796));
   Mickey.add(new HarmonicParams(-1, 18.299421, 1.570796));
