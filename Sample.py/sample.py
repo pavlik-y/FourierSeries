@@ -34,10 +34,10 @@ def rotatedSamples(harmonic, samples):
 
 def printHarmonic(i, samples, threshold):
   z = sum(rotatedSamples(i, samples))/len(samples)
-  if abs(z) < threshold:
-    return
+  # if abs(z) < threshold:
+  #   return
   r, phi = cmath.polar(z)
-  print("  fs.setHarmonic(%i, %f, %f);" % (i, r, phi))
+  print("  Square.add(new HarmonicParams(%i, %f, %f));" % (i, r, phi))
 
 def genMickey(samplesPerSegment, r):
   sections = [
@@ -74,7 +74,8 @@ def main():
   # Mickey()
   threshold = 0.001
   # samples = list(genMickey(300, 1.8))
-  samples = list(sampleCurves(treble_clef.curves, 100))
+  # samples = list(sampleCurves(treble_clef.curves, 100))
+  samples = list(genSquareSamples(300, 300))
   printHarmonic(0, samples, threshold)
   for i in xrange(1, 200):
     printHarmonic(i, samples, threshold)

@@ -23,7 +23,6 @@ static class Harmonic {
 }
 
 static class FSCurve {
-
   public FSCurve(int harmonicCount) {
     mHarmonics = new ArrayList<Harmonic>();
     mHarmonics.ensureCapacity(harmonicCount*2+1);
